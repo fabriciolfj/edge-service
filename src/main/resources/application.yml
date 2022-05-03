@@ -8,11 +8,27 @@ server:
 spring:
   application:
     name: edge-service
+  session:
+    store-type: redis
+    timeout: 10m
+    redis:
+      namespace: polar:edge
   lifecycle:
     timeout-per-shutdown-phase: 15s
+  redis:
+    connect-timeout: 2s
+    host: localhost
+    port: 6379
+    timeout: 1s
   cloud:
     gateway:
       default-filters:
+        - SaveSession
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 10
+            redis-rate-limiter.burstCapacity: 20
+            redis-rate-limiter.requestedTokens: 1
         - name: Retry
           args:
             retries: 3
