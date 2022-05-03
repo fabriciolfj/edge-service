@@ -2,8 +2,8 @@ name: Commit Stage
 on: push
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: polarbookshop/edge-service
+  REGISTRY: docker.io
+  IMAGE_NAME: fabricio211/edge-service
   VERSION: latest
 
 jobs:
@@ -86,8 +86,8 @@ jobs:
       - name: Log into container registry
         uses: docker/login-action@v1
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.io
+          username: fabricio211
+          password: megatron12
       - name: Publish container image
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
