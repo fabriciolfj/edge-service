@@ -6,6 +6,17 @@ server:
   shutdown: graceful
 
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: edge-service
+            client-secret: polar-keycloak-secret
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/auth/realms/PolarBookshop
   application:
     name: edge-service
   session:

@@ -1,0 +1,1 @@
+./kcadm.sh create realms -s realm=PolarBookshop -s enabled=true
