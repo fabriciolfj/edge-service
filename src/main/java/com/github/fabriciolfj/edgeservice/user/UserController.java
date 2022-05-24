@@ -17,6 +17,6 @@ public class UserController {
     @GetMapping
     public Mono<User> getUser(@AuthenticationPrincipal OidcUser oidcUser) {
         System.out.println(oidcUser.getIdToken().getAccessTokenHash());
-        return Mono.just(new User(oidcUser.getPreferredUsername(), oidcUser.getGivenName(), oidcUser.getFamilyName(), List.of("employee", "customer")));
+        return Mono.just(new User(oidcUser.getPreferredUsername(), oidcUser.getGivenName(), oidcUser.getFamilyName(), oidcUser.getClaimAsStringList("roles")));
     }
 }

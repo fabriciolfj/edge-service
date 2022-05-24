@@ -13,7 +13,7 @@ spring:
           keycloak:
             client-id: edge-service
             client-secret: polar-keycloak-secret
-            scope: openid
+            scope: openid,roles
         provider:
           keycloak:
             issuer-uri: http://localhost:8080/auth/realms/PolarBookshop
@@ -35,6 +35,7 @@ spring:
     gateway:
       default-filters:
         - SaveSession
+        - TokenRelay
         - name: RequestRateLimiter
           args:
             redis-rate-limiter.replenishRate: 10
@@ -59,6 +60,10 @@ spring:
           max-idle-time: 15s
           max-life-time: 60s
       routes:
+        - id: spa-route
+          uri: ${SPA_URL:http://localhost:9004}
+          predicates:
+            - Path=/,/*.css,/*.js,/favicon.ico
         - id: catalog-route
           uri: ${CATALOG_SERVICE_URL:http://localhost:9001}/books
           predicates:
