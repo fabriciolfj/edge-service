@@ -8,15 +8,16 @@ server:
 spring:
   security:
     oauth2:
-      client:
-        registration:
-          keycloak:
-            client-id: edge-service
-            client-secret: polar-keycloak-secret
-            scope: openid,roles
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8080/auth/realms/PolarBookshop
+      #client:
+      #  registration:
+      #    keycloak:
+      #      client-id: edge-service
+      #      client-secret: polar-keycloak-secret
+      #      scope: openid,roles
+      resourceserver:
+        jwt:
+          #issuer-uri: http://localhost:8080/auth/realms/PolarBookshop
+          jwk-set-uri: http://localhost:8080/auth/realms/PolarBookshop/protocol/openid-connect/certs
   application:
     name: edge-service
   session:
